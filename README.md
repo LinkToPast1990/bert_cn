@@ -1,5 +1,5 @@
 # bert_cn
-Chinese sentiment classification based on bert. 
+Chinese sentiment classification based on bert. This code was tested with TensorFlow 1.11.0 and Python 3.6.5
 
 ## experiment results (comparing different optimizer) ##
 
