@@ -15,19 +15,20 @@ def get_line(file_path):
 
 
 if __name__ == '__main__':
-    root_dir = 'data/2000/'     
-
+    root_dir = 'data/2000/'
     folders = ['neg/', 'pos/']
 
-    train_path = './data/' + 'train' + '.tsv'
+    output_path = 'data/'
+
+    train_path = output_path + 'train.tsv'
     train = open(train_path, 'w', encoding='utf-8', newline='')
     train_writer = csv.writer(train, delimiter='\t')
 
-    dev_path = './data/' + 'dev' + '.tsv'
+    dev_path = output_path + 'dev.tsv'
     dev = open(dev_path, 'w', encoding='utf-8', newline='')
     dev_writer = csv.writer(dev, delimiter='\t')
 
-    test_path = './data/' + 'test' + '.tsv'
+    test_path = output_path + 'test.tsv'
     test = open(test_path, 'w', encoding='utf-8', newline='')
     test_writer = csv.writer(test, delimiter='\t')
 
@@ -40,13 +41,16 @@ if __name__ == '__main__':
 
         for parent, directories, files in os.walk(input_path):
 
+            file_count = len(files)
+            print(file_count)
+
             for file in files:
                 content = get_line(input_path + file)
                 length_list.append(len(content))
 
-                if i < 800:
+                if i < int(file_count*0.8):
                     train_writer.writerow([content, folder])
-                elif 800 <= i < 900:
+                elif int(file_count*0.8) <= i < int(file_count*0.9):
                     dev_writer.writerow([content, folder])
                 else:
                     test_writer.writerow([content, folder])
@@ -59,4 +63,6 @@ if __name__ == '__main__':
 
     print(np.max(length_list))
     print(np.mean(length_list))
+
+
 
